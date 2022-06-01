@@ -1,0 +1,25 @@
+.App{
+  padding:30px;
+  display : grid;
+  grid-auto-flow: row;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  grid-gap: 30px;
+}
+.movieCard {
+  width: 340px;
+}
+.movieImage{
+  width:340px;
+  height:550px;
+  object-fit: cover;
+}
+.movieName{
+  font-weight: bold;
+  font-size: 30px;
+}
+.movieCredentials{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
