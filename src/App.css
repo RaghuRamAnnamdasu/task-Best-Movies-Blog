@@ -1,5 +1,8 @@
 .App{
   padding:30px;
+  
+}
+.movieList{
   display : grid;
   grid-auto-flow: row;
   grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
@@ -15,11 +18,31 @@
 }
 .movieName{
   font-weight: bold;
-  font-size: 30px;
+  font-size: 24px;
 }
 .movieCredentials{
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+.movieRating{
+  font-size: 18px;;
+}
+.counterContainer{
+  display: flex;
+  gap : 10px;
+  margin-top: 10px;
+}
+.likeButton, .dislikeButton{
+  font-size: 18px;
+}
+.formSection{
+  display : flex;
+  flex-direction: column;
+  gap:10px;
+  padding:24px;
+}
+.name-input{
+  display : block;
 }
 

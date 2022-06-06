@@ -1,7 +1,7 @@
 // import logo from './logo.svg';
 import './App.css';
-
-const movieInfo = [
+import {useState} from "react";
+const mveinf = [
   {
     imgg : "https://wallpaperaccess.com/full/1266291.jpg",
     namee : "Titanic",
@@ -77,30 +77,124 @@ const movieInfo = [
 ];
 
 function App() {
+  const[movieInfo,setmovieInfo]=useState(mveinf);
   return (
     <div className="App">
-      {movieInfo.map((value)=>{
-        return <MovieCard img = {value.imgg} name = {value.namee} rating = {value.ratingg} content = {value.contentt} />
-      })}
+      <div className="movieAddition">
+      <MovieAdditionForm mveinf={mveinf} setmovieInfo={setmovieInfo}/>
+      </div>
+      <div className="movieList">
+        {movieInfo.map((value)=>{
+          return <MovieCard img = {value.imgg} name = {value.namee} rating = {value.ratingg} content = {value.contentt} />
+        })}
+      </div>
     </div>
   ); 
 }
 
+// function Form(){
+//   <MovieAdditionForm />
+// }
+
 
 function MovieCard({img,name,rating,content}){
+  const styles = {
+    color: rating>8 ? "green" : "red"
+  };
+  const [show,setShow] = useState(true);
+  const paraStyles = {
+    display : show ? "block" : "none"
+  }
   return(
     <div className = "movieCard">
       <img className = "movieImage" src = {img} alt = {name}/>
       <div className = "movieCredentials">
-        <span className = "movieName">{name}</span>
-        <span className = "movieRating">⭐ {rating} </span>
+        <span className = "movieName">{`${name} `}
+          <button onClick={(
+            )=>{
+              return setShow(!show)
+            }}
+            >
+              i
+          </button>
+        </span>
+        <span style = {styles} className = "movieRating">⭐ {rating} </span>
       </div>
-      <div className = "movieDescription">{content}</div>
+      <div style = {paraStyles}className = "movieDescription">{content}</div>
+      <Counter />
     </div>
   );
 
 }
 
-export default App;
+function Counter(){
+  const [like,setLike] = useState(0);
+  const [disLike,setDisLike] = useState(0);
+  return(
+    <div className="counterContainer">
+      <button 
+        className="likeButton"
+        onClick={()=>setLike(like+1)}
+      >
+        👍 {like}
+      </button>
+      <button 
+        className="dislikeButton"
+        onClick={()=>setDisLike(disLike+1)}
+      >
+        👎 {disLike}
+      </button>
+    </div>
+  );
+}
+
+
+
+
+function MovieAdditionForm({mveinf,setmovieInfo}){
+  
+  const[name,setName]=useState("");
+  const[image,setImage]=useState("");
+  const[rating,setRating]=useState("");
+  const[content,setContent]=useState("");
+  const[trailer,setTrailer]=useState("");
+  
+  // console.log(mveinf);
+  var object = {};
+  object.namee=name;
+  object.imgg=image;
+  object.ratingg=rating;
+  object.contentt=content;
+  object.trailerr=trailer;
+  // console.log(object);
+  return(
+    <div className = "formSection">
+      <input type="text" className="name input" placeholder="Name" onChange={(evt)=>{
+        setName(evt.target.value);
+      }}/>
+      <input type="text" className="poster input" placeholder="Poster" onChange={(evt)=>{
+        setImage(evt.target.value);
+      }}/>
+      <input type="text" className="rating input" placeholder="Rating" onChange={(evt)=>{
+        setRating(evt.target.value);
+      }}/>
+      <input type="text" className="summary input" placeholder="Summary" onChange={(evt)=>{
+        setContent(evt.target.value);
+      }}/>
+      {/* <input type="text" className="trailer input" placeholder="Trailer" onChange={(evt)=>{
+        setTrailer(evt.target.value);
+      }}/> */}
+      <button type="button" className="addMovieButton" onClick={()=>{
+        
+        setmovieInfo ([...mveinf,object]);
+      }}>ADD MOVIE</button>
+    </div>
+    
+  )
+}
+
+
+
+export {App};
 
 
