@@ -1,16 +1,43 @@
 import { useState } from "react";
-import ThumbUpIcon from '@mui/icons-material/ThumbUp';
-import ThumbDownAltIcon from '@mui/icons-material/ThumbDownAlt';
+import Badge from '@mui/material/Badge';
+import IconButton from '@mui/material/IconButton';
 
 export function Counter() {
   const [like, setLike] = useState(0);
   const [disLike, setDisLike] = useState(0);
   return (
     <div className="counterContainer">
-      <div className="likesDiv">
-      <ThumbUpIcon className="likeButton" onClick={() => setLike(like + 1)} />
-        <span> {like}</span>
+      {/* <div className="likesDiv"> */}
+      <div className = "likeEnclosure">
+        <Badge badgeContent={like} color="primary">
+          <IconButton 
+            aria-label="Like" 
+            className = "likeButton" 
+            color = "primary" 
+            size="small"
+            onClick={() => setLike(like + 1)} >
+            👍
+          </IconButton>
+          
+        </Badge>
       </div>
+      <div className = "dislikeEnclosure">
+        <Badge badgeContent={disLike} color="error">
+          <IconButton 
+            aria-label="dislike" 
+            size="small"
+            className = "dislikeButton" 
+            onClick={() => setDisLike(disLike + 1)} >
+            👎
+          </IconButton>
+          
+        </Badge>
+      </div>
+      
+
+      {/* <ThumbUpIcon className="likeButton" onClick={() => setLike(like + 1)} />
+        <span> {like}</span> */}
+      {/* </div> */}
       
       {/* <button
         className="likeButton"
@@ -18,10 +45,10 @@ export function Counter() {
       >
         👍 {like}
       </button> */}
-      <div className="disLikesDiv">
+      {/* <div className="disLikesDiv">
         <ThumbDownAltIcon className="dislikeButton" onClick={() => setDisLike(disLike + 1)}/>
         <span>{disLike}</span>
-      </div>
+      </div> */}
       {/* <button
         className="dislikeButton"
         onClick={() => setDisLike(disLike + 1)}

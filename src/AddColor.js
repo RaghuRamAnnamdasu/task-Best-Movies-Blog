@@ -9,7 +9,7 @@
      
      const styles = {backgroundColor : color};
     return(
-        <div>
+        <div className="colorGame">
             <div className="addColorEnclosure">
                 <TextField style={styles} className="addColorField" label="Enter a Color" variant="outlined"  value = {color} onChange={(evt) => {
                     setColor(evt.target.value)

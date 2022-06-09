@@ -2,10 +2,13 @@
 import './App.css';
 import {useState} from "react";
 import {AddColor} from "./AddColor";
-import { Routes, Route, Link, Navigate, useParams, useNavigate } from "react-router-dom";
+import { Routes, Route, Link, Navigate, useNavigate } from "react-router-dom";
 import { MovieCard } from './MovieCard';
 import { MovieAdditionForm } from './MovieAdditionForm';
 import Button from '@mui/material/Button';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import { MovieDetails } from './MovieDetails';
 const mveinf = [
   {
     imgg : "https://wallpaperaccess.com/full/1266291.jpg",
@@ -97,6 +100,7 @@ const mveinf = [
 
 function App() {
   const[movieInfo,setmovieInfo]=useState(mveinf);
+  const navigate = useNavigate();
   function AddMovies(){
     return(
       <div className="movieAddition">
@@ -117,7 +121,7 @@ function App() {
   return (
     <div className="App">
       {/* <h1>Welcome to React Router!</h1> */}
-      <nav className = "navigationBar">
+      {/* <nav className = "navigationBar"> */}
         {/* <ul>
           <li><Link to="/">Home</Link></li>
           <li><Link to="/about">About</Link></li>
@@ -125,12 +129,21 @@ function App() {
           <li><Link to="/addmovies">Add Movies</Link></li>
           <li><Link to="/addcolor">Color Game</Link></li>
         </ul> */}
-          <Link to="/">Home</Link>
+        <AppBar position="static">
+        <Toolbar>
+          <Button color="inherit" onClick = {()=> navigate("/")}>Home</Button>
+          <Button color="inherit" onClick = {()=> navigate("/about")}>About</Button>
+          <Button color="inherit" onClick = {()=> navigate("/movies")}>Movies</Button>
+          <Button color="inherit" onClick = {()=> navigate("/addmovies")}>Add Movies</Button>
+          <Button color="inherit" onClick = {()=> navigate("/addcolor")}>Color Game</Button>
+        </Toolbar>
+      </AppBar>
+          {/* <Link to="/">Home</Link>
           <Link to="/about">About</Link>
           <Link to="/movies">Movies</Link>
           <Link to="/addmovies">Add Movies</Link>
           <Link to="/addcolor">Color Game</Link>
-      </nav>
+      </nav> */}
       <Routes>
         <Route path="/" element={<Movies />} />
         <Route path="/about" element={<About />} />
@@ -155,41 +168,6 @@ function App() {
   )
   
 }
-function MovieDetails({movieList}){
-  const{id} = useParams();
-  const navigate = useNavigate();
-  const styles = {
-    color : movieList[id].ratingg > 8 ? 'green' : 'red'
-  }
-  return(
-  <div>
-    <iframe 
-      width="100%" 
-      height="800" 
-      src= {movieList[id].trailerr} 
-      title="YouTube video player" 
-      frameborder="0" 
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-      allowfullscreen
-    >
-    </iframe>
-    <div className="movieDetailContainer">
-      <div className = "movieCredentials">
-        <h2 className = "movieName">{movieList[id].namee}</h2>
-        <p className='movieRating' style={styles}>⭐ {movieList[id].ratingg}</p>
-      </div>
-      <p className='movieDescription'>{movieList[id].contentt}</p>
-      
-      <Button variant="outlined" onClick={() => {
-            return navigate(-1);
-          }}
-          >
-            Back</Button>
-    </div>
-  </div>
-  )
-}
-
 function NotFound(){
   return <h1>404 not found</h1>
 }

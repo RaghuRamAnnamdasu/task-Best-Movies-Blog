@@ -24,7 +24,7 @@
   align-items: center;
   display: grid;
   grid-auto-flow: column;
-  grid-column-gap: 8px;
+  /* grid-column-gap: 8px; */
 }
 .movieCredentials{
   display: flex;
@@ -36,13 +36,13 @@
 }
 .counterContainer{
   display: flex;
-  gap : 10px;
-  margin-top: 24px;
+  /* gap : 10px; */
+  margin-top: 8px;
 }
-.likeButton, .dislikeButton{
-  /* font-size: 18px; */
+/* .likeButton, .dislikeButton{
+  font-size: 18px;
   fill: gold !important;
-}
+} */
 .formSection{
   display : flex;
   flex-direction: column;
@@ -54,6 +54,10 @@
 }
 .movieDetailContainer{
   max-width: 900px;
+  padding:16px;
+}
+.colorGame{
+  padding:16px;
 }
 .addColorEnclosure{
   display : flex;
@@ -65,7 +69,12 @@
 .addColorField{
   color:black;
 }
-.navigationBar{
+
+.likeEnclosure{
+  margin-right: 10px !important;
+}
+
+/* .navigationBar{
   width:100%;
   background-color: darkblue;
   margin-bottom: 10px;
@@ -74,22 +83,22 @@
   align-items: center;
   padding: 8px 16px; 
   gap: 16px;
-}
-.infoIcon {
+} */
+/* .infoIcon {
   fill: darkblue !important;
-}
+} */
 
-.navigationBar a {
+/* .navigationBar a {
   text-decoration: none;
   color: white;
-}
+} */
 
-.likesDiv,
+/* .likesDiv,
 .disLikesDiv {
   display: flex;
-}
+} */
 
-.likesDiv span,
+/* .likesDiv span,
 .disLikesDiv span {
   margin-top: -13px;
     height: 15px;
@@ -107,4 +116,4 @@
 }
 .disLikesDiv span {
   background-color: red;
-}
+} */

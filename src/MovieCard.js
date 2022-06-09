@@ -4,6 +4,10 @@ import { Counter } from './Counter';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import KeyboardControlKeyIcon from '@mui/icons-material/KeyboardControlKey';
 import InfoIcon from '@mui/icons-material/Info';
+import IconButton from '@mui/material/IconButton';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+
 
 // function Form(){
 //   <MovieAdditionForm />
@@ -18,36 +22,60 @@ export function MovieCard({ img, name, rating, content, id }) {
   };
   const navigate = useNavigate();
   return (
-    <div className="movieCard">
-      <img className="movieImage" src={img} alt={name} />
-      <div className="movieCredentials">
-        <span className="movieName">{`${name} `}
-        <InfoIcon  className = "infoIcon" onClick={() => {
-            navigate(`/movies/${id}`);
-          }} />
-         {/* <button onClick={() => {
-            navigate(`/movies/${id}`);
-          }}
-          >
-            Info
-          </button> */}
-          {show ? <KeyboardControlKeyIcon onClick={() => {
-            return setShow(!show);}} />
-          : <ExpandMoreIcon onClick={() => {
-            return setShow(!show);}} />
-          }
+    <Card variant="outlined" >
+      <div className="movieCard">
+        <img className="movieImage" src={img} alt={name} />
+        <CardContent>
+        <div className="movieCredentials">
+          <span className="movieName">{`${name}`}
+          {/* <InfoIcon  className = "infoIcon" onClick={() => {
+              navigate(`/movies/${id}`);
+            }} /> */}
+          <IconButton 
+            aria-label="Movie Details"
+            size="small" 
+            className = "infoIcon"
+            color = "primary" 
+            onClick={() => {
+              navigate(`/movies/${id}`);
+            }} >
+            <InfoIcon />
+          </IconButton>
           {/* <button onClick={() => {
-            return setShow(!show);
-          }}
-          >
-            Toggle
-          </button> */}
-        </span>
-        <span style={styles} className="movieRating">⭐ {rating} </span>
+              navigate(`/movies/${id}`);
+            }}
+            >
+              Info
+            </button> */}
+            <IconButton 
+            aria-label="Movie summary" 
+            size="small"
+            color = "primary" 
+            onClick={() => {
+              return setShow(!show);}} >
+              {show ? <KeyboardControlKeyIcon /> : <ExpandMoreIcon />}
+            </IconButton>
+            
+            {/* <KeyboardControlKeyIcon onClick={() => {
+              return setShow(!show);}} />
+            
+            <ExpandMoreIcon onClick={() => {
+              return setShow(!show);}} /> */}
+            
+            {/* <button onClick={() => {
+              return setShow(!show);
+            }}
+            >
+              Toggle
+            </button> */}
+          </span>
+          <span style={styles} className="movieRating">⭐ {rating} </span>
+        </div>
+        <div style={paraStyles} className="movieDescription">{content}</div>
+        </CardContent>
+        <Counter />
       </div>
-      <div style={paraStyles} className="movieDescription">{content}</div>
-      <Counter />
-    </div>
+    </Card>
   );
 
 }
