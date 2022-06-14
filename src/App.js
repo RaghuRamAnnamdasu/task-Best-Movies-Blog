@@ -1,6 +1,6 @@
 // import logo from './logo.svg';
 import './App.css';
-import {useState} from "react";
+import {createContext, useContext, useState} from "react";
 import {AddColor} from "./AddColor";
 import { Routes, Route, Link, Navigate, useNavigate } from "react-router-dom";
 import { MovieCard } from './MovieCard';
@@ -9,6 +9,14 @@ import Button from '@mui/material/Button';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import { MovieDetails } from './MovieDetails';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import Paper from '@mui/material/Paper';
+import Brightness4Icon from '@mui/icons-material/Brightness4';
+import Brightness7Icon from '@mui/icons-material/Brightness7';
+import TextField from '@mui/material/TextField';
+import Confetti from 'react-confetti';
+import useWindowSize from 'react-use/lib/useWindowSize';
+
 const mveinf = [
   {
     imgg : "https://wallpaperaccess.com/full/1266291.jpg",
@@ -36,7 +44,7 @@ const mveinf = [
     namee : "Harry Potter and the Goblet of Fire",
     ratingg : 7.7,
     contentt : "Harry Potter finds himself competing in a hazardous tournament between rival schools of magic, but he is distracted by recurring nightmares.",
-    trailerr : "https://www.youtube.com/embed/7lJ6Suyp1ok"
+    trailerr : "https://www.youtube.com/embed/3EGojp4Hh6I"
   },
   {
     imgg : "https://terrigen-cdn-dev.marvel.com/content/prod/1x/avengersendgame_lob_crd_05.jpg",
@@ -99,6 +107,13 @@ const mveinf = [
 
 
 function App() {
+  const [mode,setMode] = useState("dark");
+  const theme = createTheme({
+    palette: {
+      mode: mode,
+    },
+  });
+  
   const[movieInfo,setmovieInfo]=useState(mveinf);
   const navigate = useNavigate();
   function AddMovies(){
@@ -119,52 +134,38 @@ function App() {
   }
 
   return (
-    <div className="App">
-      {/* <h1>Welcome to React Router!</h1> */}
-      {/* <nav className = "navigationBar"> */}
-        {/* <ul>
-          <li><Link to="/">Home</Link></li>
-          <li><Link to="/about">About</Link></li>
-          <li><Link to="/movies">Movies</Link></li>
-          <li><Link to="/addmovies">Add Movies</Link></li>
-          <li><Link to="/addcolor">Color Game</Link></li>
-        </ul> */}
-        <AppBar position="static">
-        <Toolbar>
-          <Button color="inherit" onClick = {()=> navigate("/")}>Home</Button>
-          <Button color="inherit" onClick = {()=> navigate("/about")}>About</Button>
-          <Button color="inherit" onClick = {()=> navigate("/movies")}>Movies</Button>
-          <Button color="inherit" onClick = {()=> navigate("/addmovies")}>Add Movies</Button>
-          <Button color="inherit" onClick = {()=> navigate("/addcolor")}>Color Game</Button>
-        </Toolbar>
-      </AppBar>
-          {/* <Link to="/">Home</Link>
-          <Link to="/about">About</Link>
-          <Link to="/movies">Movies</Link>
-          <Link to="/addmovies">Add Movies</Link>
-          <Link to="/addcolor">Color Game</Link>
-      </nav> */}
-      <Routes>
-        <Route path="/" element={<Movies />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/movies" element={<Movies />} />
-        <Route path="/addmovies"element={<AddMovies />}/>
-        <Route path="/addcolor" element={<AddColor />} />
-        <Route path="/movies/:id" element={<MovieDetails movieList={movieInfo}/>} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-      
-      
-      {/* <div className="movieAddition">
-      <MovieAdditionForm mveinf={movieInfo} setmovieInfo={setmovieInfo} />
-      </div> 
-      <div className="movieList">
-        {movieInfo.map((value,index)=>{
-          return <MovieCard key = {index} img = {value.imgg} name = {value.namee} rating = {value.ratingg} content = {value.contentt} />
-        })}
-      </div> */}
-      {/* <AddColor /> */}
-    </div>
+    <ThemeProvider theme={theme}>
+      <Paper elevation={4} style={{minHeight:"100vh", borderRadius:"0px"}}>
+        <div className="App">
+          
+            <AppBar position="static">
+              <Toolbar>
+                <Button color="inherit" onClick = {()=> navigate("/")}>Home</Button>
+                <Button color="inherit" onClick = {()=> navigate("/about")}>About</Button>
+                <Button color="inherit" onClick = {()=> navigate("/movies")}>Movies</Button>
+                <Button color="inherit" onClick = {()=> navigate("/addmovies")}>Add Movies</Button>
+                <Button color="inherit" onClick = {()=> navigate("/addcolor")}>Color Game</Button>
+                <Button color="inherit" onClick = {()=> navigate("/tictactoe")}>Tic-Tac-Toe</Button>
+                <Button color="inherit" onClick = {()=> 
+                  setMode(mode==="light" ? "dark" : "light")
+                  }>{mode==="light" ? <Brightness7Icon/> : <Brightness4Icon/>}
+                    {mode==="light" ? "Dark Mode" : "Light Mode"}</Button>
+              </Toolbar>
+            </AppBar>
+              
+          <Routes>
+            <Route path="/" element={<Movies />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/movies" element={<Movies />} />
+            <Route path="/addmovies"element={<AddMovies />}/>
+            <Route path="/addcolor" element={<AddColor />} />
+            <Route path="/tictactoe" element={<TicTacToe />} />
+            <Route path="/movies/:id" element={<MovieDetails movieList={movieInfo}/>} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </div>
+      </Paper>
+    </ThemeProvider>
   )
   
 }
@@ -177,6 +178,168 @@ function Home(){
 function About(){
   return <h1>This is all about movies</h1>
 }
+
+
+
+
+const scoreUpdation = createContext();
+const playerUpdation = createContext();
+var finalIndex=[];
+
+
+
+function TicTacToe(){
+  const [score1,setScore1] = useState(0);
+  const [score2,setScore2] = useState(0);
+  var scoreArray=[score1,score2,setScore1,setScore2];
+  var initialPlayerObj={ player1 : "player1", player2 : "player2"};
+  const[playerObj,setPlayerObj] = useState(initialPlayerObj);
+  var playerArray=[playerObj, setPlayerObj, initialPlayerObj];
+ return(
+  <scoreUpdation.Provider value = {scoreArray}>
+    <playerUpdation.Provider value = {playerArray}>
+      <div className="tictactoe">
+        <h1>Tic-Tac-Toe Game</h1>
+        <Board />
+      </div> 
+    </playerUpdation.Provider>
+ </scoreUpdation.Provider>
+ )
+}
+
+function Board(){ 
+const[playerObj,setPlayerObj,initialPlayerObj] = useContext(playerUpdation);
+const [winner, setWinner] = useState("");
+const [isXTurn, setIsXturn] = useState(true);
+var initialData = [
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null
+]
+const [board,setBoard] = useState(initialData);
+  
+return(
+  <div className="gameWrapper">
+    <div className="boardEnclosure">
+      <Form isXTurn={isXTurn}/>
+      <div className="board">
+        {board.map((value,index)=>{
+          return <GameBox val={value} index={index} board={board} setBoard={setBoard} isXTurn={isXTurn} setIsXturn={setIsXturn} winner={winner}/>
+        })}
+      </div>
+      <div className = "reset">
+        <Button variant="contained" onClick = {()=> {
+          setBoard(initialData);
+          setWinner("");
+          setPlayerObj(initialPlayerObj);
+          setIsXturn(true);
+          finalIndex=[];
+          // console.log()
+        }}>RESET</Button>
+      </div>
+    </div>
+    <WinnerFunction winner={winner} setWinner={setWinner} board={board}/>
+  </div>
+)
+}
+
+function GameBox({val,index,board,setBoard, isXTurn, setIsXturn,winner}){
+  const[playerObj,setPlayerObj] = useContext(playerUpdation);
+  var temp=[...board];
+  var [a,b,c] = finalIndex;
+    return(
+      <div className = {temp[index]==="X" ? `xGameBox ${finalIndex.includes(index) ? "sucessBackground" : ""}` : `oGameBox ${finalIndex.includes(index) ? "sucessBackground" : ""}`} onClick={()=>{
+        if(!temp[index] && !winner){
+          temp[index] = isXTurn ? "X" : "O";
+          setBoard(temp);
+          setIsXturn(!isXTurn);
+          val = temp[index];
+        }
+      }}>{val}</div>
+    ) 
+}
+
+function WinnerFunction({winner, setWinner, board}){
+  const[score1,score2,setScore1,setScore2] = useContext(scoreUpdation);
+  const[playerObj,setPlayerObj] = useContext(playerUpdation);
+  var winCase = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+  // console.log(board);
+  winCase.map((value)=>{
+    for(var i=0;i<value.length;i++){
+      var [a,b,c] = value;
+      // console.log(a,b,c);
+      if(board[a]!==null && board[a]===board[b] && board[a]===board[c]){
+        setWinner(board[a]==="X" ? playerObj.player1 : playerObj.player2);
+        finalIndex=[a,b,c];
+        // console.log(a);
+      }
+    }
+  })
+  var count = 0;
+  var display="";
+  for(var i=0;i<board.length;i++){
+    if(board[i]){
+      count = count+1;
+    }
+  }
+  if(count!==0 && winner){
+    display=` Winner is ${winner} `;
+  }else if(count === 9 && !winner){
+    display = "Game is a Tie";
+  }
+  return(
+    <div className = "result">
+     <div>{display}</div>
+     {winner && <Celebrations/>}
+    </div>
+  )
+}
+
+// function ScoreCard(){
+
+//   return(
+//     <div>
+//       <Form />
+//     </div>
+//   )
+// }
+function Form({isXTurn}){
+  const[score1,score2,setScore1,setScore2] = useContext(scoreUpdation);
+  const[playerObj,setPlayerObj] = useContext(playerUpdation);
+  var temp = {...playerObj};
+  return(
+    <div className = "formEnclosure">
+      <div className = "playerDetailsWrapper">
+        <TextField className={isXTurn ? "player1Input" : ""} label="Player1"  value={playerObj.player1} variant="standard" onChange={(evt) => {
+          temp.player1=evt.target.value;
+          setPlayerObj(temp);
+        }}/>
+        <TextField className={!isXTurn ? "player2Input" : ""} label="Player2" value={playerObj.player2} variant="standard" onChange={(evt) => {
+          temp.player2=evt.target.value;
+          setPlayerObj(temp);
+        }}/>
+      </div>
+    </div>
+  )
+}
+
+function Celebrations(){
+  const { width, height } = useWindowSize();
+  return (
+    <Confetti
+      width={width - 50}
+      height={height - 50}
+      numberOfPieces={500}
+    />
+  )
+}
+
 export {App};
 
 

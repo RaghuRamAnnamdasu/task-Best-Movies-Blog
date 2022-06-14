@@ -12,7 +12,7 @@ export function MovieDetails({ movieList }) {
     <div className="movieDetailsContainer">
       <iframe
         width="100%"
-        height="800"
+        height="835px"
         src={movieList[id].trailerr}
         title="YouTube video player"
         frameborder="0"
@@ -20,7 +20,7 @@ export function MovieDetails({ movieList }) {
         allowfullscreen
       >
       </iframe>
-      <div className="movieDetailContainer">
+      <div className="movieCredentialsContainer">
         <div className="movieCredentials">
           <h2 className="movieName">{movieList[id].namee}</h2>
           <p className='movieRating' style={styles}>⭐ {movieList[id].ratingg}</p>

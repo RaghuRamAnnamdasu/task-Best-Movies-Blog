@@ -7,6 +7,7 @@ import InfoIcon from '@mui/icons-material/Info';
 import IconButton from '@mui/material/IconButton';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
+import CardActions from '@mui/material/CardActions';
 
 
 // function Form(){
@@ -73,7 +74,9 @@ export function MovieCard({ img, name, rating, content, id }) {
         </div>
         <div style={paraStyles} className="movieDescription">{content}</div>
         </CardContent>
-        <Counter />
+        <CardActions>
+          <Counter />
+        </CardActions>
       </div>
     </Card>
   );
