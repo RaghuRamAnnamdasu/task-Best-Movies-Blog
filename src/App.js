@@ -148,7 +148,7 @@ function App() {
                 <Button color="inherit" onClick = {()=> navigate("/tictactoe")}>Tic-Tac-Toe</Button>
                 <Button color="inherit" onClick = {()=> 
                   setMode(mode==="light" ? "dark" : "light")
-                  }>{mode==="light" ? <Brightness7Icon/> : <Brightness4Icon/>}
+                  }>{mode==="light" ? <Brightness4Icon/> : <Brightness7Icon/>}
                     {mode==="light" ? "Dark Mode" : "Light Mode"}</Button>
               </Toolbar>
             </AppBar>
