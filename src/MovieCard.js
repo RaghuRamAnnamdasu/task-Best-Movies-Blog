@@ -8,12 +8,11 @@ import IconButton from '@mui/material/IconButton';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 
-// function Form(){
-//   <MovieAdditionForm />
-// }
-export function MovieCard({ img, name, rating, content, id }) {
+
+export function MovieCard({ img, name, rating, content, id, mveinf, setmovieInfo, idNew }) {
   const styles = {
     color: rating > 8 ? "green" : "red"
   };
@@ -29,9 +28,6 @@ export function MovieCard({ img, name, rating, content, id }) {
         <CardContent>
         <div className="movieCredentials">
           <span className="movieName">{`${name}`}
-          {/* <InfoIcon  className = "infoIcon" onClick={() => {
-              navigate(`/movies/${id}`);
-            }} /> */}
           <IconButton 
             aria-label="Movie Details"
             size="small" 
@@ -42,12 +38,7 @@ export function MovieCard({ img, name, rating, content, id }) {
             }} >
             <InfoIcon />
           </IconButton>
-          {/* <button onClick={() => {
-              navigate(`/movies/${id}`);
-            }}
-            >
-              Info
-            </button> */}
+          
             <IconButton 
             aria-label="Movie summary" 
             size="small"
@@ -56,26 +47,25 @@ export function MovieCard({ img, name, rating, content, id }) {
               return setShow(!show);}} >
               {show ? <KeyboardControlKeyIcon /> : <ExpandMoreIcon />}
             </IconButton>
-            
-            {/* <KeyboardControlKeyIcon onClick={() => {
-              return setShow(!show);}} />
-            
-            <ExpandMoreIcon onClick={() => {
-              return setShow(!show);}} /> */}
-            
-            {/* <button onClick={() => {
-              return setShow(!show);
-            }}
-            >
-              Toggle
-            </button> */}
+           
           </span>
           <span style={styles} className="movieRating">⭐ {rating} </span>
         </div>
         <div style={paraStyles} className="movieDescription">{content}</div>
         </CardContent>
-        <CardActions>
+        <CardActions className = "cardActionsMovieCard">
           <Counter />
+          <IconButton 
+            aria-label="Movie Details"
+            size="small" 
+            className = "infoIcon"
+            color = "primary" onClick = {()=> {
+            var temp=[...mveinf];
+            temp.splice(id,1);
+            setmovieInfo(temp);
+          }}>
+            <DeleteIcon fontSize="small !important" />
+          </IconButton>
         </CardActions>
       </div>
     </Card>

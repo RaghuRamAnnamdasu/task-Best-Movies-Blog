@@ -17,8 +17,9 @@ import TextField from '@mui/material/TextField';
 import Confetti from 'react-confetti';
 import useWindowSize from 'react-use/lib/useWindowSize';
 
-const mveinf = [
+const mveinf =  [
   {
+    id:100,
     imgg : "https://wallpaperaccess.com/full/1266291.jpg",
     namee : "Titanic",
     ratingg : 7.9,
@@ -26,6 +27,7 @@ const mveinf = [
     trailerr : "https://www.youtube.com/embed/kVrqfYjkTdQ"
   },
   {
+    id:100,
     imgg : "https://www.xtrafondos.com/descargar.php?id=2728&vertical=1",
     namee : "Ben-Hur",
     ratingg : 8.1,
@@ -33,6 +35,7 @@ const mveinf = [
     trailerr : "https://www.youtube.com/embed/NR1ZHKw09n8"
   },
   {
+    id:100,
     imgg : "https://static.toiimg.com/photo/msid-5348868/5348868.jpg?26276",
     namee : "Avatar",
     ratingg : 7.8,
@@ -40,6 +43,7 @@ const mveinf = [
     trailerr : "https://www.youtube.com/embed/5PSNL1qE6VY"
   },
   {
+    id:100,
     imgg : "https://i.pinimg.com/originals/6b/40/c5/6b40c5d03dfce1084dea4829bc7310a1.jpg",
     namee : "Harry Potter and the Goblet of Fire",
     ratingg : 7.7,
@@ -47,6 +51,7 @@ const mveinf = [
     trailerr : "https://www.youtube.com/embed/3EGojp4Hh6I"
   },
   {
+    id:100,
     imgg : "https://terrigen-cdn-dev.marvel.com/content/prod/1x/avengersendgame_lob_crd_05.jpg",
     namee : "The Avengers",
     ratingg : 8,
@@ -54,6 +59,7 @@ const mveinf = [
     trailerr : "https://www.youtube.com/embed/eOrNdBpGMv8"
   },
   {
+    id:100,
     imgg : "https://flxt.tmsimg.com/assets/p11546593_p_v10_af.jpg",
     namee : "Baahubali",
     ratingg : 8,
@@ -61,6 +67,7 @@ const mveinf = [
     trailerr : "https://www.youtube.com/embed/sOEg_YZQsTI"
   },
   {
+    id:100,
     imgg : "https://m.media-amazon.com/images/I/A1JVqNMI7UL._SL1500_.jpg",
     namee : "Interstellar",
     ratingg : 8.6,
@@ -68,6 +75,7 @@ const mveinf = [
     trailerr : "https://www.youtube.com/embed/zSWdZVtXT7E"
   },
   {
+    id:100,
     imgg : "https://stat1.bollywoodhungama.in/wp-content/uploads/2021/10/Pushpa.jpeg",
     namee : "Pushpa",
     ratingg : 7.6,
@@ -75,6 +83,7 @@ const mveinf = [
     trailerr : "https://www.youtube.com/embed/Q1NKMPhP8PY"
   },
   {
+    id:100,
     imgg : "https://m.media-amazon.com/images/I/711eHgGtnFL._SL1209_.jpg",
     namee : "Bahubali 2",
     ratingg : 8.2,
@@ -82,6 +91,7 @@ const mveinf = [
     trailerr : "https://www.youtube.com/embed/G62HrubdD6o"
   },
   {
+    id:100,
     imgg : "https://m.media-amazon.com/images/M/MV5BMjMwMDgyOGQtMWZjNC00MDUwLTllZDYtZWM3NDBmN2YzNGZmXkEyXkFqcGdeQXVyMTQzNjkzMzEw._V1_FMjpg_UX1000_.jpg",
     namee : "KGF Chapter 2",
     ratingg : 8.7,
@@ -89,6 +99,7 @@ const mveinf = [
     trailerr : "https://www.youtube.com/embed/JKa05nyUmuQ"
   },
   {
+    id:100,
     imgg : "https://stat1.bollywoodhungama.in/wp-content/uploads/2016/03/Dangal-1.jpg",
     namee : "Dangal",
     ratingg : 8.3,
@@ -96,6 +107,7 @@ const mveinf = [
     trailerr : "https://www.youtube.com/embed/x_7YlGv9u1g"
   },
   {
+    id:100,
     imgg : "https://m.media-amazon.com/images/M/MV5BMTYzOTE2NjkxN15BMl5BanBnXkFtZTgwMDgzMTg0MzE@._V1_.jpg",
     namee : "PK",
     ratingg : 8.1,
@@ -127,7 +139,7 @@ function App() {
     return(
       <div className="movieList">
         {movieInfo.map((value,index)=>{
-          return <MovieCard key = {index} id = {index} img = {value.imgg} name = {value.namee} rating = {value.ratingg} content = {value.contentt} />
+          return <MovieCard key = {index} id = {index} img = {value.imgg} name = {value.namee} rating = {value.ratingg} content = {value.contentt} mveinf={movieInfo} setmovieInfo={setmovieInfo} idNew={value.id}/>
         })}
       </div>
     )
@@ -139,17 +151,22 @@ function App() {
         <div className="App">
           
             <AppBar position="static">
-              <Toolbar>
-                <Button color="inherit" onClick = {()=> navigate("/")}>Home</Button>
-                <Button color="inherit" onClick = {()=> navigate("/about")}>About</Button>
-                <Button color="inherit" onClick = {()=> navigate("/movies")}>Movies</Button>
-                <Button color="inherit" onClick = {()=> navigate("/addmovies")}>Add Movies</Button>
-                <Button color="inherit" onClick = {()=> navigate("/addcolor")}>Color Game</Button>
-                <Button color="inherit" onClick = {()=> navigate("/tictactoe")}>Tic-Tac-Toe</Button>
-                <Button color="inherit" onClick = {()=> 
-                  setMode(mode==="light" ? "dark" : "light")
-                  }>{mode==="light" ? <Brightness4Icon/> : <Brightness7Icon/>}
-                    {mode==="light" ? "Dark Mode" : "Light Mode"}</Button>
+              <Toolbar className="toolBar">
+                <div>
+                  <Button color="inherit" onClick = {()=> navigate("/")}>Home</Button>
+                  <Button color="inherit" onClick = {()=> navigate("/about")}>About</Button>
+                  <Button color="inherit" onClick = {()=> navigate("/movies")}>Movies</Button>
+                  <Button color="inherit" onClick = {()=> navigate("/addmovies")}>Add Movies</Button>
+                  <Button color="inherit" onClick = {()=> navigate("/addcolor")}>Color Game</Button>
+                  <Button color="inherit" onClick = {()=> navigate("/tictactoe")}>Tic-Tac-Toe</Button>
+                </div>
+                <div>
+                  <Button color="inherit" className="modeButton" onClick = {()=> 
+                    setMode(mode==="light" ? "dark" : "light")
+                    }>{mode==="light" ? <Brightness4Icon/> : <Brightness7Icon/>}&nbsp;&nbsp;
+                      {mode==="light" ? "Dark Mode" : "Light Mode"}
+                  </Button>
+                </div>
               </Toolbar>
             </AppBar>
               
