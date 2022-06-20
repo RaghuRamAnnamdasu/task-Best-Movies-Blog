@@ -15,6 +15,7 @@ import Brightness7Icon from '@mui/icons-material/Brightness7';
 import { TicTacToe } from './TicTacToe';
 import { Movies } from './Movies';
 import { EditMovie } from './EditMovie';
+import { BasicForm } from './BasicForm';
 
 const mveinf =  [
   {
@@ -163,6 +164,7 @@ function App() {
             <Route path="/movies/:id" element={<MovieDetails />} />
             <Route path="*" element={<NotFound />} />
             <Route path="/movies/edit/:id" element={<EditMovie />} />
+            <Route path="/basicform" element={<BasicForm />} />
           </Routes>
         </div>
       </Paper>
@@ -179,6 +181,8 @@ function Home(){
 function About(){
   return <h1>This is all about movies</h1>
 }
+
+
 
 export {App};
 
