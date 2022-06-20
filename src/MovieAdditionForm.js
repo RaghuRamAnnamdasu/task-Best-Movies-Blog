@@ -1,14 +1,16 @@
 import { useState } from "react";
+import {useNavigate} from "react-router-dom";
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 
-export function MovieAdditionForm({ mveinf, setmovieInfo }) {
+export function MovieAdditionForm() {
 
   const [name, setName] = useState("");
   const [image, setImage] = useState("");
   const [rating, setRating] = useState("");
   const [content, setContent] = useState("");
   const [trailer, setTrailer] = useState("");
+  const navigate = useNavigate();
   const addMovie = () => {
     const newMovie = {
       namee: name,
@@ -17,9 +19,25 @@ export function MovieAdditionForm({ mveinf, setmovieInfo }) {
       contentt: content,
       trailerr: trailer
     };
-    setmovieInfo([...mveinf, newMovie]);
-    console.log(newMovie);
+    // setmovieInfo([...movieInfo, newMovie]);
+    // console.log(newMovie);
+    addMovieAPI(newMovie);
   };
+
+  function addMovieAPI(newMovie){
+    fetch("https://62a97085ec36bf40bdb787b6.mockapi.io/movies",
+      {method:"POST",
+      body : JSON.stringify(newMovie),
+      headers : {"Content-Type":"application/json"}
+      }
+    ).then(()=>navigate("/movies"))
+      // .then((data)=>data.json())
+      // .then((mvs)=>setmovieInfo(mvs));
+  }
+
+  // useEffect(()=>{
+  //   addMovieAPI();
+  // },[]);
 
 
   return (

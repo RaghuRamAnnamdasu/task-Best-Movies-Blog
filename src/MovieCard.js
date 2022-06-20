@@ -9,10 +9,11 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 
 
 
-export function MovieCard({ img, name, rating, content, id, mveinf, setmovieInfo, idNew }) {
+export function MovieCard({ img, name, rating, content, id, mveinf, setmovieInfo, getMovieAPI }) {
   const styles = {
     color: rating > 8 ? "green" : "red"
   };
@@ -22,47 +23,55 @@ export function MovieCard({ img, name, rating, content, id, mveinf, setmovieInfo
   };
   const navigate = useNavigate();
   return (
-    <Card variant="outlined" >
+    <Card className = "card" variant="outlined" >
       <div className="movieCard">
         <img className="movieImage" src={img} alt={name} />
         <CardContent>
-        <div className="movieCredentials">
-          <span className="movieName">{`${name}`}
-          <IconButton 
-            aria-label="Movie Details"
-            size="small" 
-            className = "infoIcon"
-            color = "primary" 
-            onClick={() => {
-              navigate(`/movies/${id}`);
-            }} >
-            <InfoIcon />
-          </IconButton>
-          
+          <div className="movieCredentials">
+            <span className="movieName">{`${name}`}
             <IconButton 
-            aria-label="Movie summary" 
-            size="small"
-            color = "primary" 
-            onClick={() => {
-              return setShow(!show);}} >
-              {show ? <KeyboardControlKeyIcon /> : <ExpandMoreIcon />}
+              aria-label="Movie Details"
+              size="small" 
+              className = "infoIcon"
+              color = "primary" 
+              onClick={() => {
+                navigate(`/movies/${id}`);
+              }} >
+              <InfoIcon />
             </IconButton>
-           
-          </span>
-          <span style={styles} className="movieRating">⭐ {rating} </span>
-        </div>
-        <div style={paraStyles} className="movieDescription">{content}</div>
+            
+              <IconButton 
+              aria-label="Movie summary" 
+              size="small"
+              color = "primary" 
+              onClick={() => {
+                return setShow(!show);}} >
+                {show ? <KeyboardControlKeyIcon /> : <ExpandMoreIcon />}
+              </IconButton>
+            
+            </span>
+            <span style={styles} className="movieRating">⭐ {rating} </span>
+          </div>
+          <div style={paraStyles} className="movieDescription">{content}</div>
         </CardContent>
         <CardActions className = "cardActionsMovieCard">
           <Counter />
           <IconButton 
-            aria-label="Movie Details"
+            aria-label="Movie Edit"
             size="small" 
-            className = "infoIcon"
+            className = "editIcon"
             color = "primary" onClick = {()=> {
-            var temp=[...mveinf];
-            temp.splice(id,1);
-            setmovieInfo(temp);
+              navigate(`/movies/edit/${id}`)
+          }}>
+            <EditIcon fontSize="small !important" />
+          </IconButton>
+          <IconButton 
+            aria-label="Movie Delete"
+            size="small" 
+            className = "deleteIcon"
+            color = "primary" onClick = {()=> {
+              fetch(`https://62a97085ec36bf40bdb787b6.mockapi.io/movies/${id}`,{method:"DELETE"})
+              .then(()=>getMovieAPI());
           }}>
             <DeleteIcon fontSize="small !important" />
           </IconButton>

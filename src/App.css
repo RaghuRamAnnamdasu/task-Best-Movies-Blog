@@ -15,6 +15,11 @@
 }
 .movieCard {
   width: 340px;
+  /* height : min-content !important; */
+}
+
+.card{
+  height: fit-content;
 }
 .movieImage{
   width:340px;
