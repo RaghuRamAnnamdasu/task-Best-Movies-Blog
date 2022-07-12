@@ -10,6 +10,7 @@ import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import { API } from "./global";
 
 
 
@@ -60,7 +61,8 @@ export function MovieCard({ img, name, rating, content, id, mveinf, setmovieInfo
             aria-label="Movie Edit"
             size="small" 
             className = "editIcon"
-            color = "primary" onClick = {()=> {
+            style = {{marginLeft : "auto"}}
+            color = "secondary" onClick = {()=> {
               navigate(`/movies/edit/${id}`)
           }}>
             <EditIcon fontSize="small !important" />
@@ -69,8 +71,8 @@ export function MovieCard({ img, name, rating, content, id, mveinf, setmovieInfo
             aria-label="Movie Delete"
             size="small" 
             className = "deleteIcon"
-            color = "primary" onClick = {()=> {
-              fetch(`https://62a97085ec36bf40bdb787b6.mockapi.io/movies/${id}`,{method:"DELETE"})
+            color = "error" onClick = {()=> {
+              fetch(`${API}/movies/${id}`,{method:"DELETE"})
               .then(()=>getMovieAPI());
           }}>
             <DeleteIcon fontSize="small !important" />

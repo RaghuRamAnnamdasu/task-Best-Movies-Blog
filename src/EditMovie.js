@@ -4,6 +4,7 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import {useFormik} from "formik";
 import * as yup from "yup";
+import { API } from "./global";
 
 
 
@@ -24,7 +25,7 @@ export function EditMovie() {
   const { id } = useParams();
   
   function getMovieAPI(){
-    fetch(`https://62a97085ec36bf40bdb787b6.mockapi.io/movies/${id}`)
+    fetch(`${API}/movies/${id}`)
     .then((data)=>data.json())
     .then((mvs)=>setMovie(mvs));
   }
@@ -86,7 +87,7 @@ export function EditMovie() {
     const navigate = useNavigate();
 
     function editMovieAPI(movie,values){
-      fetch(`https://62a97085ec36bf40bdb787b6.mockapi.io/movies/${movie.id}`,
+      fetch(`${API}/movies/${movie.id}`,
         {
           method:"PUT",
           body : JSON.stringify(values),
@@ -97,15 +98,15 @@ export function EditMovie() {
     return (
       <form onSubmit={handleSubmit} className="formSection">
         
-        <TextField label="Name" variant="standard"  name="namee" value={values.namee} onChange={handleChange} onBlur = {handleBlur}  id="filled-error-helper-text" helperText={touched.namee && errors.namee}/>
+        <TextField label="Name" variant="standard"  name="namee" value={values.namee} onChange={handleChange} onBlur = {handleBlur}  error={touched.namee && errors.namee} id="filled-error-helper-text" helperText={touched.namee && errors.namee}/>
         {/* {touched.namee && errors.namee} */}
-        <TextField label="Poster" variant="standard" name="imgg" value={values.imgg} onChange={handleChange} onBlur = {handleBlur}  id="filled-error-helper-text" helperText={touched.imgg && errors.imgg}/>
+        <TextField label="Poster" variant="standard" name="imgg" value={values.imgg} onChange={handleChange} onBlur = {handleBlur}  error={touched.imgg && errors.imgg}  id="filled-error-helper-text" helperText={touched.imgg && errors.imgg}/>
         {/* {touched.imgg && errors.imgg} */}
-        <TextField label="Rating" variant="standard" className="rating input"  name="ratingg" value={values.ratingg} onChange={handleChange} onBlur = {handleBlur}  id="filled-error-helper-text" helperText={touched.ratingg && errors.ratingg}/>
+        <TextField label="Rating" variant="standard" className="rating input"  name="ratingg" value={values.ratingg} onChange={handleChange} onBlur = {handleBlur}  error={touched.ratingg && errors.ratingg}  id="filled-error-helper-text" helperText={touched.ratingg && errors.ratingg}/>
         {/* {touched.ratingg && errors.ratingg} */}
-        <TextField label="Summary" variant="standard" className="summary input" name="contentt" value={values.contentt} onChange={handleChange} onBlur = {handleBlur}  id="filled-error-helper-text" helperText={touched.contentt && errors.contentt} />
+        <TextField label="Summary" variant="standard" className="summary input" name="contentt" value={values.contentt} onChange={handleChange} onBlur = {handleBlur}  error={touched.contentt && errors.contentt}  id="filled-error-helper-text" helperText={touched.contentt && errors.contentt} />
         {/* {touched.contentt && errors.contentt} */}
-        <TextField label="Trailer" variant="standard" className="trailer input" name="trailerr" value={values.trailerr} onChange={handleChange} onBlur = {handleBlur}  id="filled-error-helper-text" helperText={touched.trailerr && errors.trailerr}/>
+        <TextField label="Trailer" variant="standard" className="trailer input" name="trailerr" value={values.trailerr} onChange={handleChange} onBlur = {handleBlur}  error={touched.trailerr && errors.trailerr}  id="filled-error-helper-text" helperText={touched.trailerr && errors.trailerr}/>
         {/* {touched.trailerr && errors.trailerr} */}
         <Button variant="outlined" className="addMovieButton" type="submit">Add Movie</Button>
       </form>
