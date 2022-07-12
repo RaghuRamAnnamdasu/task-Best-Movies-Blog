@@ -108,7 +108,7 @@ export function EditMovie() {
         {/* {touched.contentt && errors.contentt} */}
         <TextField label="Trailer" variant="standard" className="trailer input" name="trailerr" value={values.trailerr} onChange={handleChange} onBlur = {handleBlur}  error={touched.trailerr && errors.trailerr}  id="filled-error-helper-text" helperText={touched.trailerr && errors.trailerr}/>
         {/* {touched.trailerr && errors.trailerr} */}
-        <Button variant="outlined" className="addMovieButton" type="submit">Add Movie</Button>
+        <Button variant="outlined" className="addMovieButton" type="submit">Save</Button>
       </form>
     );
   }
